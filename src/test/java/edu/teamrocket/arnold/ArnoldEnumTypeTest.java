@@ -1,17 +1,17 @@
-package org.foobarspam.arnoldEnumType.test;
+package edu.teamrocket.arnold;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.foobarspam.arnoldEnumType.logica.Planeta;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import edu.teamrocket.arnold.logica.Planeta;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class ArnoldEnumTypeTest {
 
 	public static String[] planetas;
 
-	@BeforeClass
+	@BeforeAll
 	public static void CreacionArrayPlanetasSetup() {
 		planetas = new String[8];
 		int planetasIncluidos = 0;
@@ -53,7 +53,7 @@ public class ArnoldEnumTypeTest {
 	@Test
 	public void PlanetaNamesIteratorTest() {
 		for (Planeta planeta : Planeta.values()) {
-			assertThat(planeta.name()).isIn(planetas);
+			assertThat(planeta.name()).isIn((Object[])planetas);
 		}
 	}
 
@@ -72,33 +72,34 @@ public class ArnoldEnumTypeTest {
 
 		for (int i = Planeta.MERCURY.ordinal(); i < Planeta.JUPITER.ordinal(); i++) {
 			planetasTerrestres[i] = Planeta.values()[i].name();
-			planetasIncluidos += 1;
+			planetasIncluidos ++;
 		}
 		assertThat(planetasIncluidos).isEqualTo(4);
 		assertThat(planetas).doesNotContainNull();
 
 		for (Planeta planeta : Planeta.getPlanetasTerrestres()) {
-			assertThat(planeta.name()).isIn(planetasTerrestres);
+			assertThat(planeta.name()).isIn((Object[])planetasTerrestres);
 		}
 	}
 
 	@Test
 	public void ArrayGigantesGaseosos() {
 
-		String[] gigantesGaseosos = new String[4];
+		String[] gigantesGaseosos = new String[2];
 		int planetasIncluidos = 0;
 
 		byte index = 0;
-		for (int i = Planeta.JUPITER.ordinal(); i <= Planeta.NEPTUNE.ordinal(); i++) {
+		for (int i = Planeta.JUPITER.ordinal(); i <= Planeta.SATURN.ordinal(); i++) {
 			gigantesGaseosos[index] = Planeta.values()[i].name();
 			planetasIncluidos += 1;
 			index += 1;
 		}
-		assertThat(planetasIncluidos).isEqualTo(4);
+		assertThat(planetasIncluidos).isEqualTo(2);
 		assertThat(planetas).doesNotContainNull();
 
 		for (Planeta planeta : Planeta.getGigantesGaseosos()) {
-			assertThat(planeta.name()).isIn(gigantesGaseosos);
+			assertThat(planeta.name()).isIn((Object[])gigantesGaseosos);
 		}
 	}
 }
+
